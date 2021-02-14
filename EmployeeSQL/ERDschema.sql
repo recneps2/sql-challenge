@@ -1,21 +1,19 @@
 ﻿-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
+-- Link to schema: https://app.quickdatabasediagrams.com/#/d/qDs9Uz
 -- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
 
 
 CREATE TABLE "dept_manager" (
-    "emp_no" int   NOT NULL,
     "dept_no" VARCHAR   NOT NULL,
+    "emp_no" int   NOT NULL,
     CONSTRAINT "pk_dept_manager" PRIMARY KEY (
-        "emp_no","dept_no"
+        "dept_no","emp_no"
      )
 );
 
 CREATE TABLE "departments" (
     "dept_no" VARCHAR   NOT NULL,
-    "dept_name" VARCHAR   NOT NULL,
-    CONSTRAINT "pk_departments" PRIMARY KEY (
-        "dept_no"
-     )
+    "dept_name" VARCHAR   NOT NULL
 );
 
 CREATE TABLE "dept_emp" (
@@ -41,19 +39,25 @@ CREATE TABLE "employees" (
 
 CREATE TABLE "titles" (
     "title_id" VARCHAR   NOT NULL,
-    "title" VARCHAR   NOT NULL
+    "title" VARCHAR   NOT NULL,
+    CONSTRAINT "pk_titles" PRIMARY KEY (
+        "title_id"
+     )
 );
 
 CREATE TABLE "salaries" (
-    "emp_no" int   NOT NULL,
-    "salary" int   NOT NULL
+    "emp_no" Int   NOT NULL,
+    "salary" int   NOT NULL,
+    CONSTRAINT "pk_salaries" PRIMARY KEY (
+        "emp_no"
+     )
 );
-
-ALTER TABLE "dept_manager" ADD CONSTRAINT "fk_dept_manager_emp_no" FOREIGN KEY("emp_no")
-REFERENCES "employees" ("emp_no");
 
 ALTER TABLE "dept_manager" ADD CONSTRAINT "fk_dept_manager_dept_no" FOREIGN KEY("dept_no")
 REFERENCES "departments" ("dept_no");
+
+ALTER TABLE "dept_manager" ADD CONSTRAINT "fk_dept_manager_emp_no" FOREIGN KEY("emp_no")
+REFERENCES "employees" ("emp_no");
 
 ALTER TABLE "departments" ADD CONSTRAINT "fk_departments_dept_no" FOREIGN KEY("dept_no")
 REFERENCES "dept_emp" ("dept_no");
